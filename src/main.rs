@@ -7,7 +7,7 @@ use std::path::{Path, PathBuf};
 
 #[get("/")]
 fn index() -> Result<NamedFile> {
-    NamedFile::open("site/index.html")
+    NamedFile::open("www/index.html")
 }
 
 #[get("/www/<file..>")]
@@ -16,8 +16,7 @@ fn files(file: PathBuf) -> Option<NamedFile> {
 }
 
 fn main() {
-
     rocket::ignite()
-      .mount("/hello", routes![index, files(file: PathBuf)])
-      .launch();
+        .mount("/", routes![index, files])
+        .launch();
 }
